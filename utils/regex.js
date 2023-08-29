@@ -1,9 +1,9 @@
 const yearPattern = /^\d{4}$/;
-const ruPattern = /а-яё/i;
-const enPattern = /a-z/i;
+const ruFilmPattern = /[а-яё\s.,!'"+:?—-]+/i;
+const enFilmPattern = /[a-z\s.,!'"+:?—-]+/i;
 
 module.exports = {
   yearPattern,
-  ruPattern,
-  enPattern,
+  ruFilmPattern,
+  enFilmPattern,
 };

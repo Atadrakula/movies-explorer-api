@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
-const { yearPattern, ruPattern, enPattern } = require('../utils/regex');
+const { yearPattern, ruFilmPattern, enFilmPattern } = require('../utils/regex');
 
 const movieSchema = mongoose.Schema(
   {
@@ -77,7 +77,7 @@ const movieSchema = mongoose.Schema(
     nameRU: {
       type: String,
       validate: {
-        validator: (v) => ruPattern.test(v),
+        validator: (v) => ruFilmPattern.test(v),
         message: 'Некорректный символ в поле "nameRU"',
       },
       required: [true, 'Поле "nameRU" должно быть заполнено'],
@@ -86,7 +86,7 @@ const movieSchema = mongoose.Schema(
     nameEN: {
       type: String,
       validate: {
-        validator: (v) => enPattern.test(v),
+        validator: (v) => enFilmPattern.test(v),
         message: 'Некорректный символ в поле "nameEN"',
       },
       required: [true, 'Поле "nameEN" должно быть заполнено'],
