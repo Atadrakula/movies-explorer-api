@@ -53,6 +53,7 @@ const movieSchema = mongoose.Schema(
         validator: (v) => validator.isURL(v),
         message: 'Некорректный URL в поле "trailerLink"',
       },
+      required: [true, 'Поле "trailerLink" должно быть заполнено'],
     },
 
     thumbnail: {
@@ -61,6 +62,7 @@ const movieSchema = mongoose.Schema(
         validator: (v) => validator.isURL(v),
         message: 'Некорректный URL в поле "thumbnail"',
       },
+      required: [true, 'Поле "thumbnail" должно быть заполнено'],
     },
 
     owner: {
@@ -90,6 +92,11 @@ const movieSchema = mongoose.Schema(
         message: 'Некорректный символ в поле "nameEN"',
       },
       required: [true, 'Поле "nameEN" должно быть заполнено'],
+    },
+
+    createdDate: {
+      type: Date,
+      default: Date.now,
     },
   },
   {

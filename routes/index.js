@@ -4,8 +4,15 @@ const movieRoute = require('./movies');
 const userRoute = require('./users');
 const auth = require('../middlewares/auth');
 const NotFoundError = require('../errors/notFoundError');
-const { celebrateUserLoginSchema, celebrateUserRegisterSchema } = require('../middlewares/celebrateUser');
-const { createNewUser, loginUser, logoutUser } = require('../controllers/users');
+const {
+  celebrateUserLoginSchema,
+  celebrateUserRegisterSchema,
+} = require('../middlewares/celebrateUser');
+const {
+  createNewUser,
+  loginUser,
+  logoutUser,
+} = require('../controllers/users');
 
 const { JWT_SECRET } = process.env;
 
@@ -16,7 +23,7 @@ routes.post('/signup', celebrateUserRegisterSchema, createNewUser);
 
 routes.use(auth);
 
-routes.use('/users', userRouter);
+routes.use('/users', userRoute);
 routes.use('/movies', movieRoute);
 
 routes.post('/signout', logoutUser);
