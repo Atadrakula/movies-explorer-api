@@ -1,6 +1,6 @@
 const BadRequestError = require('../errors/badRequestError');
 const ForbiddenError = require('../errors/forbiddenError');
-const NotFoundError = require('../errors/NotFoundError');
+const NotFoundError = require('../errors/notFoundError');
 const Movie = require('../models/movie');
 
 const getCurrentMovies = (req, res, next) => {
@@ -83,14 +83,20 @@ const deleteIdMovie = (req, res, next) => {
     .then((movie) => res.send({ data: movie }))
     .catch((err) => {
       if (err.name === 'DocumentNotFoundError') {
-        next(new NotFoundError(`Фильм с указанным movieId: ${movieId} не найден`));
+        next(
+          new NotFoundError(`Фильм с указанным movieId: ${movieId} не найден`),
+        );
       } else if (err.name === 'CastError' || err.name === 'ValidationError') {
-        next(new BadRequestError(`Передан некорректный movieId: ${movieId} при попытке удаления фильма`));
+        next(
+          new BadRequestError(
+            `Передан некорректный movieId: ${movieId} при попытке удаления фильма`,
+          ),
+        );
       } else {
         next(err);
       }
     });
-}
+};
 
 module.exports = {
   getCurrentMovies,

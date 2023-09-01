@@ -1,9 +1,16 @@
-const { getCurrentMovies, createNewMovie, deleteIdMovie } = require('../controllers/movie');
-
 const route = require('express').Router();
+const {
+  getCurrentMovies,
+  createNewMovie,
+  deleteIdMovie,
+} = require('../controllers/movie');
+const {
+  celebrateСreateNewMovieSchema,
+  celebrateMovieIdSchema,
+} = require('../middlewares/celebrateMovie');
 
 route.get('/', getCurrentMovies);
-route.post('/', createNewMovie);
-route.delete('/:movieId', deleteIdMovie);
+route.post('/', celebrateСreateNewMovieSchema, createNewMovie);
+route.delete('/:movieId', celebrateMovieIdSchema, deleteIdMovie);
 
 module.exports = route;

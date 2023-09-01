@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
-const { yearPattern, ruFilmPattern, enFilmPattern } = require('../utils/regex');
+const {
+  yearPattern,
+  ruFilmPattern,
+  enFilmPattern,
+  urlPattern,
+} = require('../utils/regex');
 
 const movieSchema = mongoose.Schema(
   {
@@ -10,6 +14,7 @@ const movieSchema = mongoose.Schema(
       maxlength: [30, 'Максимальная длина поля "name" - 30'],
       required: [true, 'Поле "country" должно быть заполнено'],
     },
+
     director: {
       type: String,
       minlength: [2, 'Минимальная длина поля "name" - 2'],
@@ -34,14 +39,13 @@ const movieSchema = mongoose.Schema(
     description: {
       type: String,
       minlength: [2, 'Минимальная длина поля "name" - 2'],
-      maxlength: [30, 'Максимальная длина поля "name" - 30'],
       required: [true, 'Поле "description" должно быть заполнено'],
     },
 
     image: {
       type: String,
       validate: {
-        validator: (v) => validator.isURL(v),
+        validator: (v) => urlPattern.test(v),
         message: 'Некорректный URL в поле "image"',
       },
       required: [true, 'Поле "description" должно быть заполнено'],
@@ -50,7 +54,7 @@ const movieSchema = mongoose.Schema(
     trailerLink: {
       type: String,
       validate: {
-        validator: (v) => validator.isURL(v),
+        validator: (v) => urlPattern.test(v),
         message: 'Некорректный URL в поле "trailerLink"',
       },
       required: [true, 'Поле "trailerLink" должно быть заполнено'],
@@ -59,7 +63,7 @@ const movieSchema = mongoose.Schema(
     thumbnail: {
       type: String,
       validate: {
-        validator: (v) => validator.isURL(v),
+        validator: (v) => urlPattern.test(v),
         message: 'Некорректный URL в поле "thumbnail"',
       },
       required: [true, 'Поле "thumbnail" должно быть заполнено'],
@@ -69,11 +73,6 @@ const movieSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'user',
       required: [true, 'Поле "owner" должно быть заполнено'],
-    },
-
-    movieId: {
-      type: Number,
-      required: [true, 'Поле "movieId" должно быть заполнено'],
     },
 
     nameRU: {

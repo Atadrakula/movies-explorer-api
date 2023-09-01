@@ -1,9 +1,11 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const BadRequestError = require('../errors/badRequestError');
-const NotFoundError = require('../errors/NotFoundError');
+const NotFoundError = require('../errors/notFoundError');
 const ConflictError = require('../errors/conflictError');
 const User = require('../models/user');
+
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 const loginUser = (req, res, next) => {
   const { email, password } = req.body;
@@ -20,12 +22,15 @@ const loginUser = (req, res, next) => {
         httpOnly: true,
         sameSite: 'none',
         // передача только по HTTPS
-        secure: true,
+        // secure: true,
       });
 
       res.send({ token });
     })
-    .catch(next);
+    .catch((err) => {
+      // console.error(`Ошибка при авторизации: ${err.message}`);
+      next(err);
+    });
 };
 
 const logoutUser = (req, res, next) => {
@@ -46,13 +51,11 @@ const createNewUser = (req, res, next) => {
   const { name, email, password } = req.body;
   bcrypt
     .hash(password, 10)
-    .then((hash) =>
-      User.create({
-        name,
-        email,
-        password: hash,
-      }),
-    )
+    .then((hash) => User.create({
+      name,
+      email,
+      password: hash,
+    }))
     .then((user) => res.status(201).send({ data: user }))
     .catch((err) => {
       if (err.code === 11000) {
@@ -86,6 +89,7 @@ const updateCurrentUser = (req, res, next) => {
     .then((user) => res.send({ data: user }))
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'StrictModeError') {
+        // eslint-disable-next-line max-len
         // StrictModeError - Строгий режим в Mongoose поднимет ошибку типа StrictModeError, если попытаться обновить документ с данными, которые не соответствуют схеме
         next(
           new BadRequestError(

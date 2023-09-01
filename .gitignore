@@ -20,5 +20,6 @@ node_modules
 # Файлы логирования
 *.log
 
-# Файл теста JWT
+# Файлы теста JWT
 testJwt.js
+testNodEnv.js
