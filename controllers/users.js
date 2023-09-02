@@ -22,13 +22,12 @@ const loginUser = (req, res, next) => {
         httpOnly: true,
         sameSite: 'none',
         // передача только по HTTPS
-        // secure: true,
+        secure: true,
       });
 
       res.send({ token });
     })
     .catch((err) => {
-      // console.error(`Ошибка при авторизации: ${err.message}`);
       next(err);
     });
 };

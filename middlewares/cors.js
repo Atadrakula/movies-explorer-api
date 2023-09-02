@@ -1,4 +1,5 @@
 const allowedCors = [
+  'https://web.portfolio.diploma.nomoredomainsicu.ru',
   'https://web.portfolio.nomoreparties.co',
   'http://web.portfolio.nomoreparties.co',
   'http://localhost:3001',
