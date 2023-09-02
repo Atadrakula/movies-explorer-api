@@ -13,7 +13,6 @@ const {
   loginUser,
   logoutUser,
 } = require('../controllers/users');
-const testNodEnv = require('../middlewares/testNodEnv');
 
 const { JWT_SECRET } = process.env;
 
@@ -21,7 +20,6 @@ routes.use(cookieParser(JWT_SECRET));
 
 routes.post('/signin', celebrateUserLoginSchema, loginUser);
 routes.post('/signup', celebrateUserRegisterSchema, createNewUser);
-routes.use(testNodEnv);
 
 routes.use(auth);
 
