@@ -1,4 +1,5 @@
 const BadRequestError = require('../errors/badRequestError');
+const ConflictError = require('../errors/conflictError');
 const ForbiddenError = require('../errors/forbiddenError');
 const NotFoundError = require('../errors/notFoundError');
 const Movie = require('../models/movie');
@@ -6,7 +7,7 @@ const Movie = require('../models/movie');
 const getCurrentMovies = (req, res, next) => {
   const { _id } = req.user;
 
-  Movie.findById({ owner: _id })
+  Movie.find({ owner: _id })
     .orFail()
     .then((movies) => {
       res.send({ data: movies });
@@ -19,7 +20,7 @@ const getCurrentMovies = (req, res, next) => {
           ),
         );
       } else if (err.name === 'DocumentNotFoundError') {
-        next(new NotFoundError(`Фильмы с пользовательским ${_id} не найден`));
+        next(new NotFoundError(`Фильмы с пользовательским ${_id} не найдены`));
       } else {
         next(err);
       }
@@ -56,7 +57,9 @@ const createNewMovie = (req, res, next) => {
   })
     .then((movie) => res.status(201).send({ data: movie }))
     .catch((err) => {
-      if (err.name === 'ValidationError') {
+      if (err.code === 11000) {
+        next(new ConflictError(`Фильм с таким названием: ${nameEN} уже существует`));
+      } else if (err.name === 'ValidationError') {
         next(
           new BadRequestError(
             'Переданы некорректные данные при создании фильма',
@@ -80,7 +83,7 @@ const deleteIdMovie = (req, res, next) => {
       }
       return Movie.findByIdAndRemove(movieId);
     })
-    .then((movie) => res.send({ data: movie }))
+    .then((movie) => res.send({ message: 'Фильм успешно удален', data: movie }))
     .catch((err) => {
       if (err.name === 'DocumentNotFoundError') {
         next(

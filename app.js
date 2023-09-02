@@ -30,7 +30,6 @@ app.use(apiLimiter);
 
 app.use(helmet());
 app.use((req, res, next) => {
-  // eslint-disable-next-line no-console
   console.log(`Пришел запрос: ${req.method} ${req.url}`);
   next();
 });
@@ -47,6 +46,5 @@ app.use(celebrateError);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
   console.log(`App listening on port ${PORT}`);
 });

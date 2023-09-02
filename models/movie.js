@@ -90,6 +90,7 @@ const movieSchema = mongoose.Schema(
         validator: (v) => enFilmPattern.test(v),
         message: 'Некорректный символ в поле "nameEN"',
       },
+      unique: [true, 'Поле "nameEN" должно быть уникальным'],
       required: [true, 'Поле "nameEN" должно быть заполнено'],
     },
 

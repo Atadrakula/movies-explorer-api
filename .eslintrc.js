@@ -15,5 +15,8 @@ module.exports = {
   rules: {
     // Запрещаем использование нижнего подчеркивания в именах, кроме "_id".
     'no-underscore-dangle': ['error', { allow: ['_id'] }],
+    'no-console': 'off',
+    'max-len': ['error', { code: 300 }],
+    'no-param-reassign': 'off',
   },
 };

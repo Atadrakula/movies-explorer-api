@@ -35,9 +35,7 @@ const userSchema = mongoose.Schema(
     strict: 'throw',
     versionKey: false,
     toJSON: {
-      // eslint-disable-next-line no-unused-vars
-      transform(doc, ret, options) {
-        // eslint-disable-next-line no-param-reassign
+      transform(doc, ret) {
         delete ret.password;
         return ret;
       },
@@ -45,7 +43,7 @@ const userSchema = mongoose.Schema(
   },
 );
 
-userSchema.statics.findUserByCredentials = function (email, password) {
+function findUserByCredentials(email, password) {
   return this.findOne({ email })
     .select('+password')
     .then((user) => {
@@ -61,6 +59,8 @@ userSchema.statics.findUserByCredentials = function (email, password) {
         return user;
       });
     });
-};
+}
+
+userSchema.statics.findUserByCredentials = findUserByCredentials;
 
 module.exports = mongoose.model('user', userSchema);

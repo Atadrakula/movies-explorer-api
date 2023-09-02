@@ -89,7 +89,6 @@ const updateCurrentUser = (req, res, next) => {
     .then((user) => res.send({ data: user }))
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'StrictModeError') {
-        // eslint-disable-next-line max-len
         // StrictModeError - Строгий режим в Mongoose поднимет ошибку типа StrictModeError, если попытаться обновить документ с данными, которые не соответствуют схеме
         next(
           new BadRequestError(
