@@ -22,7 +22,6 @@ const celebrateUserUpdateProfileSchema = withCelebrate({
   [Segments.BODY]: Joi.object().keys({
     name: Joi.string().min(2).max(30),
     email: Joi.string().email(),
-    password: Joi.string().pattern(strongPasswordPattern),
   }),
 });
 

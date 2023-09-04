@@ -58,7 +58,11 @@ const createNewMovie = (req, res, next) => {
     .then((movie) => res.status(201).send({ data: movie }))
     .catch((err) => {
       if (err.code === 11000) {
-        next(new ConflictError(`Фильм с таким названием: ${nameEN} уже существует`));
+        next(
+          new ConflictError(
+            `Фильм с таким названием: ${nameEN} уже существует`,
+          ),
+        );
       } else if (err.name === 'ValidationError') {
         next(
           new BadRequestError(

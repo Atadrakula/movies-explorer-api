@@ -4,7 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
   process.env.PORT = '3000';
   process.env.NODE_ENV = 'development';
   process.env.JWT_SECRET = 'dev-secret';
-  process.env.DB_URL = 'mongodb://127.0.0.1:27017/bitfilmsdb_test';
+  process.env.DB_URL = 'mongodb://127.0.0.1:27017/bitfilmsdb';
 }
 
 const express = require('express');

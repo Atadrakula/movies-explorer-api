@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcryptjs = require('bcryptjs');
 const UnauthorizedError = require('../errors/unauthorizedError');
-const { strongPasswordPattern } = require('../utils/regex');
 
 const userSchema = mongoose.Schema(
   {
@@ -25,10 +24,6 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, 'Поле "password" должно быть заполнено'],
       select: false,
-      validate: {
-        validator: (v) => strongPasswordPattern.test(v),
-        message: 'Некорректный Password в поле "password"',
-      },
     },
   },
   {

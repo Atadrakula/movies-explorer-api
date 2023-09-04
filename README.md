@@ -33,4 +33,4 @@
 
 IP-адрес 158.160.33.205
 
-Backend https://api.web.portfolio.diploma.nomoreparties.co
+Backend https://api.web.portfolio.diploma.nomoredomainsicu.ru

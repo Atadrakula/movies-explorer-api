@@ -25,7 +25,8 @@ const celebrateСreateNewMovieSchema = withCelebrate({
 
 const celebrateMovieIdSchema = withCelebrate({
   [Segments.PARAMS]: Joi.object().keys({
-    movieId: Joi.string().alphanum().length(24).hex(),
+    movieId: Joi.string().alphanum().length(24).hex()
+      .required(),
   }),
 });
 
