@@ -12,7 +12,7 @@ const celebrateUserLoginSchema = withCelebrate({
 
 const celebrateUserRegisterSchema = withCelebrate({
   [Segments.BODY]: Joi.object().keys({
-    name: Joi.string().min(2).max(30).required(),
+    name: Joi.string().min(2).required(),
     email: Joi.string().email().required(),
     password: Joi.string().pattern(strongPasswordPattern).required(),
   }),
@@ -20,7 +20,7 @@ const celebrateUserRegisterSchema = withCelebrate({
 
 const celebrateUserUpdateProfileSchema = withCelebrate({
   [Segments.BODY]: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
+    name: Joi.string().min(2),
     email: Joi.string().email(),
   }),
 });

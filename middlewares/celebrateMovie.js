@@ -10,8 +10,9 @@ const withCelebrate = (schema) => celebrate(schema);
 
 const celebrateСreateNewMovieSchema = withCelebrate({
   [Segments.BODY]: Joi.object().keys({
-    country: Joi.string().min(2).max(30).required(),
-    director: Joi.string().min(2).max(30).required(),
+    movieId: Joi.number().required(),
+    country: Joi.string().min(2).required(),
+    director: Joi.string().min(2).required(),
     duration: Joi.number().required(),
     year: Joi.string().pattern(yearPattern).required(),
     description: Joi.string().min(2).required(),
@@ -25,8 +26,7 @@ const celebrateСreateNewMovieSchema = withCelebrate({
 
 const celebrateMovieIdSchema = withCelebrate({
   [Segments.PARAMS]: Joi.object().keys({
-    movieId: Joi.string().alphanum().length(24).hex()
-      .required(),
+    movieId: Joi.number().required(),
   }),
 });
 
