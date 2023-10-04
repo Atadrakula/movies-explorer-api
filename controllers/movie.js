@@ -29,6 +29,7 @@ const getCurrentMovies = (req, res, next) => {
 
 const createNewMovie = (req, res, next) => {
   const {
+    movieId,
     country,
     director,
     duration,
@@ -43,6 +44,7 @@ const createNewMovie = (req, res, next) => {
   const owner = req.user._id;
 
   Movie.create({
+    movieId,
     country,
     director,
     duration,
@@ -60,7 +62,7 @@ const createNewMovie = (req, res, next) => {
       if (err.code === 11000) {
         next(
           new ConflictError(
-            `Фильм с таким названием: ${nameEN} уже существует`,
+            `Фильм с таким movieId: ${movieId} уже существует`,
           ),
         );
       } else if (err.name === 'ValidationError') {
@@ -79,13 +81,13 @@ const deleteIdMovie = (req, res, next) => {
   const { movieId } = req.params;
   const userId = req.user._id;
 
-  Movie.findById(movieId)
+  Movie.findOne({ movieId })
     .orFail()
     .then((movie) => {
       if (movie.owner.toString() !== userId) {
         throw new ForbiddenError();
       }
-      return Movie.findByIdAndRemove(movieId);
+      return Movie.findOneAndRemove({ movieId });
     })
     .then((movie) => res.send({ message: 'Фильм успешно удален', data: movie }))
     .catch((err) => {
