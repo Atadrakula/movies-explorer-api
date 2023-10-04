@@ -11,7 +11,7 @@ const express = require('express');
 
 const helmet = require('helmet');
 const mongoose = require('mongoose');
-// const apiLimiter = require('./middlewares/apiLimiter');
+const apiLimiter = require('./middlewares/apiLimiter');
 const routes = require('./routes');
 const cors = require('./middlewares/cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -26,7 +26,7 @@ mongoose.connect(DB_URL, {
   useNewUrlParser: true,
 });
 
-// app.use(apiLimiter);
+app.use(apiLimiter);
 
 app.use(helmet());
 app.use((req, res, next) => {
