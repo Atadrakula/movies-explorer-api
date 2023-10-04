@@ -8,17 +8,21 @@ const {
 
 const movieSchema = mongoose.Schema(
   {
+    movieId: {
+      type: Number,
+      required: [true, 'Поле "movieId" должно быть заполнено'],
+      unique: [true, 'Поле "movieId" должно быть уникальным'],
+    },
+
     country: {
       type: String,
       minlength: [2, 'Минимальная длина поля "name" - 2'],
-      maxlength: [30, 'Максимальная длина поля "name" - 30'],
       required: [true, 'Поле "country" должно быть заполнено'],
     },
 
     director: {
       type: String,
       minlength: [2, 'Минимальная длина поля "name" - 2'],
-      maxlength: [30, 'Максимальная длина поля "name" - 30'],
       required: [true, 'Поле "director" должно быть заполнено'],
     },
 
