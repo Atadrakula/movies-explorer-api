@@ -10,17 +10,17 @@ const getCurrentMovies = (req, res, next) => {
   Movie.find({ owner: _id })
     .orFail()
     .then((movies) => {
-      res.send({ data: movies });
+      res.send({ data: movies || [] });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
         next(
           new NotFoundError(
-            `Пользователь с некорректным или невалидным id: ${_id}`,
+            'Пользователь с некорректным или невалидным id',
           ),
         );
       } else if (err.name === 'DocumentNotFoundError') {
-        next(new NotFoundError(`Фильмы с пользовательским ${_id} не найдены`));
+        next(new NotFoundError('Фильмы с вашим id не найден'));
       } else {
         next(err);
       }
