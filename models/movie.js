@@ -10,7 +10,7 @@ const movieSchema = mongoose.Schema(
   {
     movieId: {
       type: Number,
-      required: [true, 'Поле "movieId" должно быть заполнено'],
+      required: [true, 'Поле "movieId" должно быть заполнен'],
     },
 
     country: {
