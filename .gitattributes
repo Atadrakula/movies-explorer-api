@@ -1,0 +1,14 @@
+# Эти настройки отключают уведомления при команде git add -A типа: warning: in the working copy of 'src/components/landing/PopupProfile/PopupProfile.js', LF will be replaced by CRLF the next time Git touches it
+# Эти настройки указывают Git использовать LF как символ окончания строки для указанных типов файлов.
+
+# Для всех файлов с расширением .js и .jsx
+*.js text eol=lf
+*.jsx text eol=lf
+
+# Для всех файлов с расширением .css и .scss
+*.css text eol=lf
+*.scss text eol=lf
+
+# Для всех остальных файлов, например, JSON и HTML
+*.json text eol=lf
+*.html text eol=lf
